@@ -1,0 +1,16 @@
+# Configure the crawler
+
+config_name: YFCC100M_0
+
+crawl_number: 200000
+
+crawl_order: seq # can use seq, rand, ..
+
+save_folder: "../raw_images/"
+
+use_mp: True
+
+dataset_name_prefix: ../link/yfcc100m_dataset
+
+crawl_numbers:
+  - 0

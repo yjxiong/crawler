@@ -1,0 +1,26 @@
+# The Config of the YFCC100M dataset
+
+Fields:
+  - Photo/video identifier
+  - User NSID
+  - User nickname
+  - Date taken
+  - Date uploaded
+  - Capture device
+  - Title
+  - Description
+  - User tags
+  - Machine tags
+  - Longitude
+  - Latitude
+  - Accuracy
+  - Photo/video page URL
+  - Photo/video download URL
+  - License name
+  - License URL
+  - Photo/video server identifier
+  - Photo/video farm identifier
+  - Photo/video secret
+  - Photo/video secret original
+  - Photo/video extension original
+  - Photos/video marker
