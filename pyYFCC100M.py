@@ -11,6 +11,25 @@ import yaml
 import csv
 import logging
 
+class YFCCImage():
+
+    def __init__(self, id_, url_, name_):
+        self._image_id = id_
+        self._image_url = url_
+        self._image_name = name_
+
+    @property
+    def url(self):
+        return self._image_url
+
+    @property
+    def name(self):
+        return self._image_name
+
+    @property
+    def id(self):
+        return self._image_id
+
 class YFCCLoader():
     """
     The Loader for YFCC100M dataset
@@ -20,6 +39,9 @@ class YFCCLoader():
         with open('url_config.yaml') as config:
             self._config = yaml.load(config)
             self._line_tags = self._config['Fields']
+            self._url_tag_idx = self._line_tags.index(self._config['download_tag'])
+            self._id_tag_idx = self._line_tags.index(self._config['id_tag'])
+
 
     def __init__(self, name_prefix=None, id=None, input_file=None):
         """Constructor for YFCCLoader"""
@@ -39,6 +61,7 @@ class YFCCLoader():
 
         self._pos = 0
         self._setup()
+        self._end=False
 
 
     def next(self):
@@ -46,9 +69,17 @@ class YFCCLoader():
         Get next line
         :return:
         """
-        ret = self._reader.next()
-        self._pos+=1
-        return ret
+        if self._end:
+            return None
+        try:
+            ret = self._reader.next()
+            self._pos+=1
+        except StopIteration:
+            self._end=True
+            return None,None
+        # return ret, ret[self._url_tag_idx], ret[self._id_tag_idx]
+        return YFCCImage(ret[self._id_tag_idx], ret[self._url_tag_idx], '')
+
 
     @property
     def line_tags(self):
@@ -61,6 +92,10 @@ class YFCCLoader():
     @property
     def pos(self):
         return self._pos
+
+    @property
+    def is_end(self):
+        return self._end
 
     def clean_up(self):
         if self._need_close:

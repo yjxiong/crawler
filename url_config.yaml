@@ -24,3 +24,6 @@ Fields:
   - Photo/video secret original
   - Photo/video extension original
   - Photos/video marker
+
+download_tag: Photo/video download URL
+id_tag: Photo/video identifier
