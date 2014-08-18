@@ -27,3 +27,8 @@ Fields:
 
 download_tag: Photo/video download URL
 id_tag: Photo/video identifier
+type_marker: Photos/video marker
+display:
+  - Title
+  - Description
+  - User tags

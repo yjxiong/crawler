@@ -9,7 +9,7 @@ import csv, sys
 import yaml
 import logging
 import random
-from multiprocessing.pool import Pool
+from multiprocessing.dummy import Pool
 import urllib2
 import time
 import math
@@ -50,7 +50,7 @@ class YFCCCrawler():
         loader_list = [YFCCLoader(self.dataset_name_prefix, id) for id in self.crawl_numbers]
         return loader_list
 
-    def crawl(self, max=None, perm=True):
+    def crawl(self, max=None, perm=True, display=True):
         if max is None:
             crawl_num = self.crawl_number
         else:
@@ -73,7 +73,7 @@ class YFCCCrawler():
                 image = loader.next()
 
             name = '../images/{:s}.jpg'.format(image.id)
-
+            image.display()
             self._mp_pool.apply_async(download_file, args=(image.url, name))
 
         self._mp_pool.close()
@@ -85,5 +85,5 @@ class YFCCCrawler():
 
 if __name__=='__main__':
     crawler = YFCCCrawler('crawler_config.yaml')
-    crawler.crawl(100000)
+    crawler.crawl(1000,perm=False)
     # download_file(crawler._get_loader_list()[0].next()[1],'1.jpg')

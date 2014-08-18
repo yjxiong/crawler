@@ -1,16 +1,16 @@
-# Configure the crawler
+# Configuration of the crawler
 
 config_name: YFCC100M_0
 
-crawl_number: 200000
+crawl_number: 200000 #number of images to crawl
 
 crawl_order: seq # can use seq, rand, ..
 
 save_folder: "../raw_images/"
 
-use_mp: True
+use_mp: True # switch for whether use multiprocessing
 
 dataset_name_prefix: ../link/yfcc100m_dataset
 
-crawl_numbers:
+crawl_numbers: # id list of url link file, range 0-9, you can specify multiple link files here
   - 0
