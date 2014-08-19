@@ -6,6 +6,8 @@ a simple python crawler for downloading YFCC100M dataset.
 
 ## Usage
 
+Put the code in a folder `crawler`. In the upper directory create a folder named `videos`.
+
 ```python
 
 from crawler import YFCCCrawler
