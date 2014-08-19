@@ -13,7 +13,6 @@ import logging
 import pprint
 import urllib
 from enum import Enum
-import sys
 
 class YFCC_Item_TYPE(Enum):
     Image = 1

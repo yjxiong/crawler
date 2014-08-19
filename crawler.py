@@ -5,14 +5,11 @@ Created on Fri Jul 11 15:24:10 2014
 @author: Xiong Yuanjun
 """
 
-import csv, sys
+import csv
 import yaml
-import logging
 import random
 from multiprocessing.dummy import Pool
 import urllib2
-import time
-import math
 import requests
 import re
 from progressbar import *
