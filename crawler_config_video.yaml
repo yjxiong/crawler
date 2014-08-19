@@ -9,7 +9,7 @@ crawl_order: seq # can use seq, rand, ..
 use_mp: True # switch for whether use multiprocessing
 mp_thread: 32
 
-dataset_name_prefix: ../link/yfcc_video_dataset
+dataset_name_prefix: ./link/yfcc_video_dataset
 
 video_save_folder: ../videos/
 
