@@ -11,5 +11,9 @@ mp_thread: 32
 
 dataset_name_prefix: ../link/yfcc_video_dataset
 
+video_save_folder: ../videos/
+
+image_save_folder: ../images/
+
 crawl_numbers: # id list of url link file, range 0-9, you can specify multiple link files here
   - 0
