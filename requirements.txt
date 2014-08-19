@@ -3,4 +3,3 @@ requests
 enum34
 progressbar
 logging
-pprint
