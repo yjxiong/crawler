@@ -29,7 +29,7 @@ You can either set the number of items to crawl in the config file or by method 
 
 Put the link file in `/link/` and run:
 
-```python
+```Python
 
 from crawler import YFCCCrawler
 
@@ -40,3 +40,9 @@ crawler.crawl(50)
 ```
 
 This will download the first 50 videos.
+
+In case you run into dependency issues, run in terminal
+ 
+```
+pip install -r requirements.txt
+```
