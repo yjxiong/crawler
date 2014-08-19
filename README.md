@@ -42,7 +42,7 @@ from crawler import YFCCCrawler
 
 crawler = YFCCCrawler('crawler_config_video.yaml')
 
-crawler.crawl(50, display=False)
+crawler.crawl(50)
 
 ```
 
