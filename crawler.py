@@ -100,7 +100,7 @@ class YFCCCrawler():
         loader_list = [YFCCLoader(self.dataset_name_prefix, id) for id in self.crawl_numbers]
         return loader_list
 
-    def crawl(self, max=None, perm=True, display=True):
+    def crawl(self, max=None, perm=False, display=False):
         if max is None:
             crawl_num = self.crawl_number
         else:
