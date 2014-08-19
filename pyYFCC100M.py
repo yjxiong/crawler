@@ -104,7 +104,7 @@ class YFCCLoader():
 
         return YFCCItem(ret[self._id_tag_idx], ret[self._url_tag_idx], '',
                         type_=type_,
-                        display_={x: urllib.unquote(ret[x]).decode('utf8')  for x in self._display_fields},
+                        display_={name: urllib.unquote(ret[x]).decode('utf8') for name, x in zip(self._config['display'], self._display_fields)},
                         raw=ret)
 
     def get_list(self):

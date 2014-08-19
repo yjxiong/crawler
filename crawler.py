@@ -123,7 +123,8 @@ class YFCCCrawler():
                     raise StopIteration
                 item = loader.next()
 
-            # image.display()
+            if display:
+                item.display()
             type_ = item.type
             prefix_ = '../images/' if type_ == YFCC_Item_TYPE.Image else '../videos/'
             self._mp_pool.apply_async(download_file_v2, args=(item.url, item.id), kwds ={'prefix':prefix_, 'retry':6}, callback=download_callback(i))
