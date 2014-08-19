@@ -12,26 +12,38 @@ import csv
 import logging
 import pprint
 import urllib
+from enum import Enum
+import sys
 
-class YFCCImage():
+class YFCC_Item_TYPE(Enum):
+    Image = 1
+    Video = 2
 
-    def __init__(self, id_, url_, name_, display_=None):
-        self._image_id = id_
-        self._image_url = url_
-        self._image_name = name_
+class YFCCItem():
+
+    def __init__(self, id_, url_, name_, display_=None, raw=None, type_=YFCC_Item_TYPE.Image):
+        self._item_id = id_
+        self._item_url = url_
+        self._item_name = name_
         self._display_list = display_
+        self._raw = raw
+        self._item_type = type_
 
     @property
     def url(self):
-        return self._image_url
+        return self._item_url
 
     @property
     def name(self):
-        return self._image_name
+        return self._item_name
 
     @property
     def id(self):
-        return self._image_id
+        return self._item_id
+
+    @property
+    def type(self):
+        return self._item_type
 
     def display(self):
         pprint.pprint(self._display_list)
@@ -54,6 +66,7 @@ class YFCCLoader():
     def __init__(self, name_prefix=None, id=None, input_file=None):
         """Constructor for YFCCLoader"""
 
+        csv.field_size_limit(1000000000)
         if input_file is None:
             input_file = open('{}-{:d}'.format(name_prefix,id))
             self._reader = csv.reader(input_file,delimiter='\t',
@@ -70,6 +83,7 @@ class YFCCLoader():
         self._pos = 0
         self._setup()
         self._end=False
+        self.input_file = input_file
 
 
     def next(self):
@@ -82,15 +96,19 @@ class YFCCLoader():
         try:
             ret = self._reader.next()
             self._pos += 1
-            while ret[self._type_marker] != "0":
-                ret = self._reader.next()
-                self._pos += 1
+            type_ = YFCC_Item_TYPE.Image if ret[self._type_marker] == "0" else YFCC_Item_TYPE.Video
 
         except StopIteration:
             self._end=True
-            return None,None
-        # return ret, ret[self._url_tag_idx], ret[self._id_tag_idx]
-        return YFCCImage(ret[self._id_tag_idx], ret[self._url_tag_idx], '', {x: urllib.unquote(ret[x]).decode('utf8')  for x in self._display_fields})
+            return None
+
+        return YFCCItem(ret[self._id_tag_idx], ret[self._url_tag_idx], '',
+                        type_=type_,
+                        display_={x: urllib.unquote(ret[x]).decode('utf8')  for x in self._display_fields},
+                        raw=ret)
+
+    def get_list(self):
+        yield self.next()
 
 
     @property
