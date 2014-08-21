@@ -18,12 +18,16 @@ video_save_folder: ../videos/
 
 image_save_folder: ../images/
 
+text_save_folder: ../des/
+
 crawl_numbers: # id list of url link file, range 0-9, you can specify multiple link files here
   - 0
 
 ```
 
 You can set the place for saving the videos and images by setting `video_save_folder` and `image_save_folder`.
+
+`text_save_folder` configures the place for saving text descritionps. Every image/video has a txt file in json format. It contains title, description, user tags and machine tags.
 
 You can either set the number of items to crawl in the config file or by method argument.
 
