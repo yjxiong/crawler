@@ -97,7 +97,7 @@ class YFCCCrawler():
         loader_list = [YFCCLoader(self.dataset_name_prefix, id) for id in self.crawl_numbers]
         return loader_list
 
-    def crawl(self, max=None, perm=False, display=False):
+    def crawl(self, max=None, perm=False, display=False, dump_to_txt=False):
         if max is None:
             crawl_num = self.crawl_number
         else:
@@ -122,6 +122,11 @@ class YFCCCrawler():
 
             if display:
                 item.display()
+            if dump_to_txt:
+                dump_str = item.dump_text()
+                dump_path = '{:s}{:s}.{:s}'.format(self.text_save_folder, item.id, 'txt')
+                with open(dump_path,'w') as dump_file:
+                    dump_file.write(dump_str)
             type_ = item.type
             prefix_ = self.image_save_folder if type_ == YFCC_Item_TYPE.Image else self.video_save_folder
             self._mp_pool.apply_async(download_file_v2, args=(item.url, item.id), kwds ={'prefix':prefix_, 'retry':6}, callback=download_callback(i))
@@ -157,7 +162,7 @@ if __name__=='__main__':
     crawler = YFCCCrawler('crawler_config_video.yaml')
 
     # crawler.extract_video_list()
-    crawler.crawl(100,perm=False)
+    crawler.crawl(100,perm=False,dump_to_txt=True)
     # download_file(crawler._get_loader_list()[0].next()[1],'1.jpg')
     # crawler.get_video_file('video_url_list.csv')
     # print crawler._get_loader_list()[5].next().url

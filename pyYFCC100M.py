@@ -12,6 +12,7 @@ import csv
 import logging
 import pprint
 import urllib
+import json
 from enum import Enum
 
 class YFCC_Item_TYPE(Enum):
@@ -46,6 +47,10 @@ class YFCCItem():
 
     def display(self):
         pprint.pprint(self._display_list)
+
+    def dump_text(self):
+        return json.dumps(self._display_list)
+
 
 class YFCCLoader():
     """
