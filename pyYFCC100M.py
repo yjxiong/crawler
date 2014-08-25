@@ -51,7 +51,7 @@ class YFCCItem():
         pprint.pprint(self._display_list)
 
     def dump_text(self):
-        return json.dumps(self._display_list)
+        return json.dumps({'display': self._display_list, 'raw': self._raw})
 
     def get_protobuf(self):
         msg = yfcc100m_pb2.ItemBlob()

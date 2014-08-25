@@ -17,7 +17,7 @@ import lmdb
 
 from pyYFCC100M import YFCCLoader, YFCC_Item_TYPE
 
-db_env = lmdb.Environment('./img_db/yfcc_img_db', map_size=2000000000000)
+db_env = lmdb.Environment('../img_db/yfcc_img_db', map_size=2000000000000)
 
 widgets = ['Progress: ', Percentage(), Bar(marker=RotatingMarker()),
                            ' ', ETA()]
@@ -150,7 +150,7 @@ class YFCCCrawler():
             prefix_ = self.image_save_folder if type_ == YFCC_Item_TYPE.Image else self.video_save_folder
             do_download = self.Download_image if type_ == YFCC_Item_TYPE.Image else self.Download_video
             self._mp_pool.apply_async(download_file_v2, args=(item.url, item.id),
-                                      kwds ={'prefix':prefix_, 'retry':6, 'do_download': do_download,'protobuf':item.get_protobuf()},
+                                      kwds ={'prefix':prefix_, 'retry':6, 'do_download': do_download},
                                       callback=download_callback(i))
 
         self._mp_pool.close()
@@ -184,7 +184,7 @@ if __name__=='__main__':
     crawler = YFCCCrawler('crawler_config.yaml')
 
     # crawler.extract_video_list()
-    crawler.crawl(10000,perm=False,dump_to_txt=True)
+    crawler.crawl(2000000,perm=True,dump_to_txt=True)
     # download_file(crawler._get_loader_list()[0].next()[1],'1.jpg')
     # crawler.get_video_file('video_url_list.csv')
     # print crawler._get_loader_list()[5].next().url
