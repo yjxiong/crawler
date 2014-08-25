@@ -14,6 +14,8 @@ import pprint
 import urllib
 import json
 from enum import Enum
+import yfcc100m_pb2
+import json
 
 class YFCC_Item_TYPE(Enum):
     Image = 1
@@ -50,6 +52,15 @@ class YFCCItem():
 
     def dump_text(self):
         return json.dumps(self._display_list)
+
+    def get_protobuf(self):
+        msg = yfcc100m_pb2.ItemBlob()
+        msg.item_id = self._item_id
+        msg.item_raw_info = json.dumps(self._raw)
+        msg.item_display_list = json.dumps(self._display_list)
+        msg.item_type = yfcc100m_pb2.ItemBlob.IMAGE if self._item_type == YFCC_Item_TYPE.Image \
+            else yfcc100m_pb2.ItemBlob.VIDEO
+        return msg
 
 
 class YFCCLoader():
