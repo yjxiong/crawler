@@ -1,0 +1,20 @@
+package YFCC100M;
+
+message ItemBlob{
+    required string img_id = 1;
+
+    optional bytes img_data = 2; // byte stream encoding the image data
+
+    required string img_raw_info = 3; // raw information from the link file.
+
+    required string img_display_list  = 4; // a list of interesting info
+
+    enum ItemType {
+        IMAGE = 0;
+        VIDEO = 1;
+        UNKNOWN = 2;
+    }
+
+    required ItemType item_type = 5;
+}
+

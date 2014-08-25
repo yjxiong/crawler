@@ -18,7 +18,7 @@ from pyYFCC100M import YFCCLoader, YFCC_Item_TYPE
 
 
 
-widgets = ['Progress: ', Percentage(), Bar(marker=AnimatedMarker()),
+widgets = ['Progress: ', Percentage(), Bar(marker=RotatingMarker()),
                            ' ', ETA()]
 pbar = ProgressBar(widgets=widgets)
 
